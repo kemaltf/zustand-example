@@ -1,4 +1,4 @@
-import Column from '../components/Column';
+import Column from './components/Column';
 import './App.css';
 
 function App() {
