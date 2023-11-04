@@ -36,9 +36,7 @@ export default function Column({ state }) {
 
   // remember only run filter map or whatever inside of a selector if you use either shalow or your own comparison function, if you don't do that maybe just stick to usememo.
 
-  const tasks = useStore((store) =>
-    store.tasks.filter((task) => task.state === state)
-  );
+  const tasks = useStore((store) => store.tasks.filter((task) => task.state === state));
 
   return (
     <div className="column">
