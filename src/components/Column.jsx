@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useStore } from '../store';
 import './Column.css';
 import Task from './Task';
@@ -35,7 +36,8 @@ export default function Column({ state }) {
   console.log(useStore);
 
   // remember only run filter map or whatever inside of a selector if you use either shalow or your own comparison function, if you don't do that maybe just stick to usememo.
-
+  const [text, setText] = useState('');
+  const [open, setOpen] = useState('');
   const tasks = useStore((store) => store.tasks.filter((task) => task.state === state));
   const addTask = useStore((store) => store.addTask);
   console.log(addTask);
@@ -43,17 +45,27 @@ export default function Column({ state }) {
     <div className="column">
       <div className="titleWrapper">
         <p>{state}</p>
-        <button
-          onClick={() => {
-            addTask('sabfgiosa' + state, state);
-          }}
-        >
-          Add
-        </button>
+        <button onClick={() => setOpen(true)}>Add</button>
       </div>
       {tasks.map((task) => (
         <Task title={task.title} key={task.title}></Task>
       ))}
+      {open && (
+        <div className="Modal">
+          <div className="modalContent">
+            <input onChange={(e) => setText(e.target.value)} value={text}></input>
+            <button
+              onClick={() => {
+                addTask(text, state);
+                setText('');
+                setOpen(false);
+              }}
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
