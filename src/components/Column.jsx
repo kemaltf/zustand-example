@@ -37,10 +37,20 @@ export default function Column({ state }) {
   // remember only run filter map or whatever inside of a selector if you use either shalow or your own comparison function, if you don't do that maybe just stick to usememo.
 
   const tasks = useStore((store) => store.tasks.filter((task) => task.state === state));
-
+  const addTask = useStore((store) => store.addTask);
+  console.log(addTask);
   return (
     <div className="column">
-      <p>{state}</p>
+      <div className="titleWrapper">
+        <p>{state}</p>
+        <button
+          onClick={() => {
+            addTask('sabfgiosa' + state, state);
+          }}
+        >
+          Add
+        </button>
+      </div>
       {tasks.map((task) => (
         <Task title={task.title} key={task.title}></Task>
       ))}

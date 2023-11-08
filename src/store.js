@@ -10,6 +10,10 @@ const store = (set) => ({
     { title: 'Test 2 Task', state: 'ONGOING' },
     { title: 'Test 3 Task', state: 'DONE' },
   ],
+  addTask: (title, state) =>
+    set((store) => ({
+      tasks: [...store.tasks, { title, state }],
+    })),
 });
 
 // ask to chat gpt when we export this it will be like what?
