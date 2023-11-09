@@ -42,7 +42,15 @@ export default function Column({ state }) {
   const addTask = useStore((store) => store.addTask);
   console.log(addTask);
   return (
-    <div className="column">
+    <div
+      className="column"
+      onDragOver={(e) => {
+        // drag over will read the position as long as dragged
+        // in case drag and drop we need to do this
+        e.preventDefault();
+      }}
+      onDrop={(e) => console.log('dropped')}
+    >
       <div className="titleWrapper">
         <p>{state}</p>
         <button onClick={() => setOpen(true)}>Add</button>
