@@ -13,6 +13,7 @@
 .bottomWrapper {
   display: flex;
   justify-content: space-between;
+  margin-top: 10px;
 }
 
 .status {
@@ -32,4 +33,9 @@
 
 .DONE {
   background: var(--COLOR-DONE);
+}
+
+.task img {
+  height: 1.25rem;
+  cursor: pointer;
 }
