@@ -24,12 +24,10 @@ const store = (set) => ({
       tasks: store.tasks.filter((task) => task.title !== title),
     })),
   setDraggedTask: (title) => set({ draggedTask: title }),
-  moveTask: (title, state) => {
-    console.log('-', title, state);
+  moveTask: (title, state) =>
     set((store) => ({
       tasks: store.tasks.map((task) => (task.title == title ? { title, state } : task)),
-    }));
-  },
+    })),
 });
 
 // ask to chat gpt when we export this it will be like what?
