@@ -4,12 +4,21 @@ import { create } from 'zustand';
 // a state set up for the whole store
 // and it will return an object (contain everything we have in our store)
 // inside this, basically globalized our tasks
+// set function in zustand accept prev value. If it need prev value we send callback to the function. if just set,  we can directly send object.
+// Contoh 1: Bentuk Fungsi Biasa
+// set({ count: 10 });
+
+// Contoh 2: Bentuk Fungsi Callback
+// set((prevState) => {
+//   return { count: prevState.count + 1 };
+// });
 const store = (set) => ({
   tasks: [
     { title: 'Test 1 Task', state: 'PLANNED' },
     { title: 'Test 2 Task', state: 'ONGOING' },
     { title: 'Test 3 Task', state: 'DONE' },
   ],
+  draggedTask: null,
   addTask: (title, state) =>
     set((store) => ({
       tasks: [...store.tasks, { title, state }],
@@ -18,6 +27,7 @@ const store = (set) => ({
     set((store) => ({
       tasks: store.tasks.filter((task) => task.title !== title),
     })),
+  setDraggedTask: (title) => set({ draggedTask: title }),
 });
 
 // ask to chat gpt when we export this it will be like what?

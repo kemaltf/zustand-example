@@ -33,14 +33,14 @@ export default function Column({ state }) {
   //     return true;
   //   }
   // );
-  console.log(useStore);
 
   // remember only run filter map or whatever inside of a selector if you use either shalow or your own comparison function, if you don't do that maybe just stick to usememo.
   const [text, setText] = useState('');
   const [open, setOpen] = useState('');
   const tasks = useStore((store) => store.tasks.filter((task) => task.state === state));
   const addTask = useStore((store) => store.addTask);
-  console.log(addTask);
+  const setDraggedTask = useStore((store) => store.setDraggedTask);
+  const draggedTask = useStore((store) => store.draggedTask);
   return (
     <div
       className="column"
@@ -49,7 +49,10 @@ export default function Column({ state }) {
         // in case drag and drop we need to do this
         e.preventDefault();
       }}
-      onDrop={(e) => console.log('dropped')}
+      onDrop={(e) => {
+        console.log(draggedTask);
+        setDraggedTask(null);
+      }}
     >
       <div className="titleWrapper">
         <p>{state}</p>

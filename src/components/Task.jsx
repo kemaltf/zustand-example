@@ -5,9 +5,18 @@ import trash from '../assets/trash.svg';
 
 export default function Task({ title }) {
   const task = useStore((store) => store.tasks.find((task) => task.title === title));
+  const setDraggedTask = useStore((store) => store.setDraggedTask);
   const deleteTask = useStore((store) => store.deleteTask);
   return (
-    <div className="task" draggable>
+    <div
+      className="task"
+      draggable
+      onDragStart={() => {
+        console.log('start');
+        console.log(task.title);
+        setDraggedTask(task.title);
+      }}
+    >
       <div>{task.title}</div>
       <div className="bottomWrapper">
         <div>
