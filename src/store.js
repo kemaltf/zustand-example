@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-
+import { devtools, persist } from 'zustand/middleware';
 // store just an arrow function that takes in a set as a parameter
 // a state set up for the whole store
 // and it will return an object (contain everything we have in our store)
@@ -31,4 +31,4 @@ const store = (set) => ({
 });
 
 // ask to chat gpt when we export this it will be like what?
-export const useStore = create(store);
+export const useStore = create(persist(devtools(store), { name: 'store' }));
