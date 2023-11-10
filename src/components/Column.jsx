@@ -41,6 +41,7 @@ export default function Column({ state }) {
   const addTask = useStore((store) => store.addTask);
   const setDraggedTask = useStore((store) => store.setDraggedTask);
   const draggedTask = useStore((store) => store.draggedTask);
+  const moveTask = useStore((store) => store.moveTask);
   return (
     <div
       className="column"
@@ -50,7 +51,8 @@ export default function Column({ state }) {
         e.preventDefault();
       }}
       onDrop={(e) => {
-        console.log(draggedTask);
+        console.log('-', state);
+        moveTask(draggedTask, state);
         setDraggedTask(null);
       }}
     >

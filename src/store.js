@@ -13,11 +13,7 @@ import { create } from 'zustand';
 //   return { count: prevState.count + 1 };
 // });
 const store = (set) => ({
-  tasks: [
-    { title: 'Test 1 Task', state: 'PLANNED' },
-    { title: 'Test 2 Task', state: 'ONGOING' },
-    { title: 'Test 3 Task', state: 'DONE' },
-  ],
+  tasks: [],
   draggedTask: null,
   addTask: (title, state) =>
     set((store) => ({
@@ -28,6 +24,12 @@ const store = (set) => ({
       tasks: store.tasks.filter((task) => task.title !== title),
     })),
   setDraggedTask: (title) => set({ draggedTask: title }),
+  moveTask: (title, state) => {
+    console.log('-', title, state);
+    set((store) => ({
+      tasks: store.tasks.map((task) => (task.title == title ? { title, state } : task)),
+    }));
+  },
 });
 
 // ask to chat gpt when we export this it will be like what?
