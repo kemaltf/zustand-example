@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useStore } from '../store';
 import './Column.css';
 import Task from './Task';
+import classNames from 'classnames';
 export default function Column({ state }) {
   // when we use contect in react every change to the whole context would update any consumer
   // even it doesn't consume the element that changed
@@ -36,7 +37,8 @@ export default function Column({ state }) {
 
   // remember only run filter map or whatever inside of a selector if you use either shalow or your own comparison function, if you don't do that maybe just stick to usememo.
   const [text, setText] = useState('');
-  const [open, setOpen] = useState('');
+  const [open, setOpen] = useState(false);
+  const [drop, setDrop] = useState(false);
   const tasks = useStore((store) => store.tasks.filter((task) => task.state === state));
   const addTask = useStore((store) => store.addTask);
   const setDraggedTask = useStore((store) => store.setDraggedTask);
@@ -44,14 +46,21 @@ export default function Column({ state }) {
   const moveTask = useStore((store) => store.moveTask);
   return (
     <div
-      className="column"
+      className={classNames('column', { drop: drop })}
       onDragOver={(e) => {
+        setDrop(true);
+        // drag over will read the position as long as dragged
+        // in case drag and drop we need to do this
+        e.preventDefault();
+      }}
+      onDragLeave={(e) => {
+        setDrop(false);
         // drag over will read the position as long as dragged
         // in case drag and drop we need to do this
         e.preventDefault();
       }}
       onDrop={(e) => {
-        console.log('-', state);
+        setDrop(false);
         moveTask(draggedTask, state);
         setDraggedTask(null);
       }}
